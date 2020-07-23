@@ -1,45 +1,68 @@
-# PyPI Template
+# Django Email Tools
 
-This template repo contains all the sample configuration needed to create a PyPI package following all of Penn Labs' suggested configuration.
+[![CircleCI](https://circleci.com/gh/pennlabs/django-email-tools.svg?style=shield)](https://circleci.com/gh/pennlabs/django-email-tools)
+[![Coverage Status](https://codecov.io/gh/pennlabs/django-email-tools/branch/master/graph/badge.svg)](https://codecov.io/gh/pennlabs/django-email-tools)
+[![PyPi Package](https://img.shields.io/pypi/v/django-email-tools.svg)](https://pypi.org/project/django-email-tools/)
+
+## Requirements
+
+* Python 3.6+
+* Django 2.2+
 
 ## Installation
 
-Click the green "Use this template" button and make a new repo with your desired name. Create a new folder to hold your reusable package. You should write tests in the `tests` directory. Run the provided init script `./init.sh <name of project> <name of github repo> <name of pypi package>` to configure most of the project. See the configuration section for final changes that need to be made. Follow the Usage instructions when developing and releasing new versions. You can also rename `README.md.template` to `README.md` (replacing this file) to get a basic Readme.
+Install with pip `pip install django-email-tools`
 
-## Features
+Add `email_tools` to `INSTALLED_APPS`
 
-* CircleCI
-  * Workflow to test and publish your project to PyPI using contexts to keep PyPI credentials safe
-* Tox
-  * Python 3.4-3.7 and Django 2.0-2.2 testing environments
-  * Testing, linting, and code coverage configuration
-* Git
-  * .gitignore file to prevent common unnecessary files from being committed
-* MIT License
+```python
+INSTALLED_APPS = (
+    ...
+    'email_tools.apps.EmailToolsConfig',
+    ...
+)
+```
+
+Add something like the following to `urls.py`
+
+```python
+if settings.DEBUG:
+    urlpatterns = [
+        path("emailpreview/", include("email_tools.urls", namespace="email_tools")),
+    ] + urlpatterns
+```
+
+## Documentation
+
+All settings are handled within a `EMAIL_TOOLS` dictionary.
+
+Example:
+
+```python
+PLATFORM_ACCOUNTS = {
+    'FROM_EMAIL': 'example@example.com',
+    'TEMPLATE_DIRECTORY': os.path.join(settings.BASE_DIR, "templates", "emails"),
+}
+```
+
+The available settings are:
+
+`FROM_EMAIL` the email to send from.
+
+`TEMPLATE_DIRECTORY` the path to a directory containing `.html` files used in emails.
 
 ## Usage
 
-### Developing
+Django Email Tools contains two main parts.
 
-* Development should happen on a feature branch and changes should be merged through a Pull Request
-* `CHANGELOG.md` should be constantly updated with features being developed. The date for an unreleased version should just be `UNRELEASED`
+First, is `email_tools.emails.send_email` a utility to send html emails given a django template and context.
 
-### Releasing a new version
+The second is a debugging page that allows you to see what the rendered result of an email template would look like. This page also allows you to get a list of variables used by the template and modify those variables and see results in real-time.
 
-In the master branch:
+## Changelog
 
-* Update `VERSION` in `setup.py`
-* Change the release date of the new version to the current date (YYYY-MM-DD) in `CHANGELOG.md`
-* Commit your changes with the message "Release x.y.z"
-* Tag your commit: `git tag -a x.y.z -m "Release x.y.z"`
-* Push your changes to Github: `git push` and `git push --tags`
+See [CHANGELOG.md](https://github.com/pennlabs/django-email-tools/blob/master/CHANGELOG.md)
 
-CircleCI will then build and publish the new version to PyPI
+## License
 
-## Configuration
-
-| File               | Line | Description                                                        |
-|--------------------|------|-------------------------------------------------------------------------------------|
-| setup.py           | 37   | Add a short description of your project here                       |
-| tests/settings.py  | 12   | Replace this line with the dotted path to your package's AppConfig |
-| tests/urls.py      | 5    | Replace the namespace with the namespace of your project           |
+See [LICENSE](https://github.com/pennlabs/django-email-tools/blob/master/LICENSE)

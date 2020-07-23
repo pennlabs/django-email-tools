@@ -23,20 +23,20 @@ class VerifyVersionCommand(install):
 
 
 setup(
-    name="pypi-project",
+    name="django-email-tools",
     version=VERSION,
     packages=find_packages(exclude=["tests"]),
-    url="https://github.com/pennlabs/github-project",
+    url="https://github.com/pennlabs/django-email-tools",
     project_urls={
-        "Changelog": ("https://github.com/pennlabs/github-project/blob/master/CHANGELOG.md")
+        "Changelog": ("https://github.com/pennlabs/django-email-tools/blob/master/CHANGELOG.md")
     },
     license="MIT",
     author="Penn Labs",
     author_email="admin@pennlabs.org",
-    description="Penn Labs example description",
+    description="A collection of Django email tools",
     long_description=DESCRIPTION,
     long_description_content_type="text/markdown",
-    install_requires=["django>=2.0.0"],
+    install_requires=["django>=2.0.0", "beautifulsoup4<=5"],
     classifiers=[
         "Framework :: Django",
         "Programming Language :: Python",
