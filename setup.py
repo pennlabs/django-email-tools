@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 from setuptools.command.install import install
 
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 DESCRIPTION = open("README.md", encoding="utf-8").read()
 
 
@@ -26,6 +26,7 @@ setup(
     name="django-email-tools",
     version=VERSION,
     packages=find_packages(exclude=["tests"]),
+    include_package_data=True,
     url="https://github.com/pennlabs/django-email-tools",
     project_urls={
         "Changelog": ("https://github.com/pennlabs/django-email-tools/blob/master/CHANGELOG.md")
