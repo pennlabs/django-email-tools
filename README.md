@@ -39,7 +39,7 @@ All settings are handled within a `EMAIL_TOOLS` dictionary.
 Example:
 
 ```python
-PLATFORM_ACCOUNTS = {
+EMAIL_TOOLS = {
     'FROM_EMAIL': 'example@example.com',
     'TEMPLATE_DIRECTORY': os.path.join(settings.BASE_DIR, "templates", "emails"),
 }
